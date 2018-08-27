@@ -473,6 +473,8 @@ type Ports struct {
 	Server       *int `json:"server,omitempty" hcl:"server" mapstructure:"server"`
 	ProxyMinPort *int `json:"proxy_min_port,omitempty" hcl:"proxy_min_port" mapstructure:"proxy_min_port"`
 	ProxyMaxPort *int `json:"proxy_max_port,omitempty" hcl:"proxy_max_port" mapstructure:"proxy_max_port"`
+	AdvertiseLAN *int `json:"advertise,omitempty" hcl:"advertise" mapstructure:"advertise"`
+	AdvertiseWAN *int `json:"advertise_wan,omitempty" hcl:"advertise_wan" mapstructure:"advertise_wan"`
 }
 
 type UnixSocket struct {

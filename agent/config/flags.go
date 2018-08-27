@@ -96,6 +96,8 @@ func AddFlags(fs *flag.FlagSet, f *Flags) {
 	add(&f.Config.SegmentName, "segment", "(Enterprise-only) Sets the network segment to join.")
 	add(&f.Config.SerfBindAddrWAN, "serf-wan-bind", "Address to bind Serf WAN listeners to.")
 	add(&f.Config.Ports.SerfWAN, "serf-wan-port", "Sets the Serf WAN port to listen on.")
+	add(&f.Config.Ports.AdvertiseLAN, "advertise-port", "Sets the advertise port on LAN.")
+	add(&f.Config.Ports.AdvertiseWAN, "advertise-wan-port", "Sets the advertise port on WAN.")
 	add(&f.Config.ServerMode, "server", "Switches agent to server mode.")
 	add(&f.Config.EnableSyslog, "syslog", "Enables logging to syslog.")
 	add(&f.Config.UI, "ui", "Enables the built-in static web UI server.")

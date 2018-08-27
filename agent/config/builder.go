@@ -427,11 +427,19 @@ func (b *Builder) Build() (rt RuntimeConfig, err error) {
 	advertiseAddrLAN := b.makeIPAddr(b.expandFirstIP("advertise_addr", c.AdvertiseAddrLAN), advertiseAddr)
 	advertiseAddrWAN := b.makeIPAddr(b.expandFirstIP("advertise_addr_wan", c.AdvertiseAddrWAN), advertiseAddrLAN)
 	rpcAdvertiseAddr := &net.TCPAddr{IP: advertiseAddrLAN.IP, Port: serverPort}
-	serfAdvertiseAddrLAN := &net.TCPAddr{IP: advertiseAddrLAN.IP, Port: serfPortLAN}
+	advertisePortLAN := b.portVal("advertise_port", c.Ports.AdvertiseLAN)
+	if advertisePortLAN == -1 {
+		advertisePortLAN = serfPortLAN
+	}
+	serfAdvertiseAddrLAN := &net.TCPAddr{IP: advertiseAddrLAN.IP, Port: advertisePortLAN}
 	// Only initialize serf WAN advertise address when its enabled
 	var serfAdvertiseAddrWAN *net.TCPAddr
 	if serfPortWAN >= 0 {
-		serfAdvertiseAddrWAN = &net.TCPAddr{IP: advertiseAddrWAN.IP, Port: serfPortWAN}
+		advertisePortWAN := b.portVal("advertise_port_wan", c.Ports.AdvertiseWAN)
+		if advertisePortWAN == -1 {
+			advertisePortWAN = serfPortWAN
+		}
+		serfAdvertiseAddrWAN = &net.TCPAddr{IP: advertiseAddrWAN.IP, Port: advertisePortWAN}
 	}
 
 	// determine client addresses
